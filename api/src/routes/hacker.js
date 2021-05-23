@@ -1,6 +1,5 @@
 const router = require('express').Router();
-// const axios = require('axios')
-// const { Op } = require("sequelize");
+
 const { Hacker } = require('../db');
 // Fetch a list of hacker from the database and sort them alphabetically, using a REST API.
 router.get('/', async (req, res) => {
@@ -61,10 +60,10 @@ router.get('/top', async (req, res) => {
     }
 })
 // Fetch details of a hacker from the database, using a REST API.
-router.get('/name/:name', async (req, res) => {
-    let { name } = req.params
+router.get('/name/:id', async (req, res) => {
+    let { id } = req.params
     try {
-        let detail = await Hacker.findByPk(name)
+        let detail = await Hacker.findByPk(id)
         !detail ? res.sendStatus(404) : res.json(detail);
     } catch (e) {
         res.status(505).send(e)
@@ -78,17 +77,16 @@ router.post('/createdb', async (req, res) => {
     try {
         await Promise.all(req.body.map(async (hacker) => {
             let {
-                name, profileLink, pictureLink, location, challengesSolved, solutionsSubmitted, solutionsAccepted, overallRank, followers, following, noOfVotes, timestamp, deviceType,
-                dataStructures, algorithms, cpp, java, python, html, javascript
+                name, profileLink, pictureLink, location, challengesSolved, solutionsSubmitted, solutionsAccepted, overallRank, followers, following, noOfVotes, timestamp, deviceType, dataStructures, algorithms, cpp, java, python, html, javascript
             } = hacker
-            let newHacker = await Hacker.create(
+            await Hacker.create(
                 {
                     name,
                     profileLink,
                     pictureLink,
                     location,
-                    challengersSolved: challengesSolved,
-                    solutionsSubmited: solutionsSubmitted,
+                    challengesSolved,
+                    solutionsSubmitted,
                     solutionsAccepted,
                     overallRank,
                     followers,
@@ -105,13 +103,10 @@ router.post('/createdb', async (req, res) => {
                     javascript,
                     myRank: (javascript + algorithms) / 200,
 
+
                 })
-
-            return console.log(newHacker)
         }))
-
-
-        res.json(req.bod)
+        res.send("base de datos creada")
     } catch (e) {
         res.status(505).send(e)
     }
