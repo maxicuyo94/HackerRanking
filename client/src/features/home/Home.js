@@ -3,7 +3,7 @@ import { Cards } from '../cards/Cards'
 import axios from 'axios';
 
 
-export const Landing = () => {
+export const Home = () => {
     let [hackers, setHackers] = useState([])
     let [page, setPage] = useState(1)
     let [sort, setSort] = useState("AtoZ")
