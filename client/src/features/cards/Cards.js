@@ -8,7 +8,7 @@ export const Cards = (props) => {
     return (
         <div>
             {Array.isArray(hackers) && hackers.map((hacker, i) => {
-                return <Link style={{ textDecoration: 'none' }} to={`/hacker/${hacker.name}`} key={`link_${hacker.name}`}>
+                return <Link style={{ textDecoration: 'none' }} to={`/hacker/${hacker.uuid}`} key={`link_${hacker.name}`}>
                     <Card hacker={hacker} key={hacker.name}/> 
                 </Link>
             })}

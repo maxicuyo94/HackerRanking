@@ -4,8 +4,9 @@ const { Hacker } = require('../db');
 // Fetch a list of hacker from the database and sort them alphabetically, using a REST API.
 router.get('/', async (req, res) => {
     let { sort, page } = req.query
+    console.log(page,sort)
     try {
-        if (page) {
+        if (page>0) {
             switch (sort) {
                 case "AtoZ":
                     return res.json(await Hacker.findAll({
@@ -27,7 +28,7 @@ router.get('/', async (req, res) => {
             }
         } else {
             return res.json(await Hacker.findAll({
-                order: [['name', 'DESC']],
+                order: [['name', 'DESC']]
             }))
         }
 
@@ -60,10 +61,11 @@ router.get('/top', async (req, res) => {
     }
 })
 // Fetch details of a hacker from the database, using a REST API.
-router.get('/name/:id', async (req, res) => {
-    let { id } = req.params
+router.get('/uuid/:uuid', async (req, res) => {
+    let { uuid } = req.params
+    console.log (uuid)
     try {
-        let detail = await Hacker.findByPk(id)
+        let detail = await Hacker.findByPk(uuid)
         !detail ? res.sendStatus(404) : res.json(detail);
     } catch (e) {
         res.status(505).send(e)
@@ -77,7 +79,7 @@ router.post('/createdb', async (req, res) => {
     try {
         await Promise.all(req.body.map(async (hacker) => {
             let {
-                name, profileLink, pictureLink, location, challengesSolved, solutionsSubmitted, solutionsAccepted, overallRank, followers, following, noOfVotes, timestamp, deviceType, dataStructures, algorithms, cpp, java, python, html, javascript
+                name, profileLink, pictureLink, location, challengersSolved, solutionsSubmited, solutionsAccepted, overallRank, followers, following, noOfVotes, timestamp, deviceType, dataStructures, algorithms, cpp, java, python, html, javascript
             } = hacker
             await Hacker.create(
                 {
@@ -85,8 +87,8 @@ router.post('/createdb', async (req, res) => {
                     profileLink,
                     pictureLink,
                     location,
-                    challengesSolved,
-                    solutionsSubmitted,
+                    challengersSolved,
+                    solutionsSubmited,
                     solutionsAccepted,
                     overallRank,
                     followers,
