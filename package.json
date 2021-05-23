@@ -1,0 +1,19 @@
+{
+  "name": "hackrank",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxicuyo94/HackerRanking.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxicuyo94/HackerRanking/issues"
+  },
+  "homepage": "https://github.com/maxicuyo94/HackerRanking#readme"
+}
